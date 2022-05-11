@@ -11,11 +11,16 @@ diffCharacters("ABCBDAB", "BDCABA")
 
 ## API
 
-*diffCharacters(oldString: string, newString: string)*
+*diffCharacters(oldString: string, newString: string, ignoreCase = false)*
 
-Compares two strings by character and returns a list `IDiffCharacter` objects (explained below)
+Compares two strings by character and returns a list 
+**oldString**: The string to be transformed
+**newString**: The string to be transformed into
+**ignoreCase**: Whether case differences should be taken into account
 
-*longestCommonSubsequence(a: string, b: string)*
+`IDiffCharacter` objects (explained below)
+
+*longestCommonSubsequence(a: string, b: string, ignoreCase = false)*
 
 Compares two strings by character and returns the [longest common subsequence](https://en.wikipedia.org/wiki/Longest_common_subsequence_problem)
 

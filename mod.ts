@@ -1,6 +1,10 @@
 import { IDiffCharacter } from "./types.ts";
 
-export function longestCommonSubsequence(a: string, b: string): string {
+export function longestCommonSubsequence(
+  a: string,
+  b: string,
+  ignoreCase = false,
+): string {
   const arr: {
     length: number;
     character: string | null;
@@ -47,7 +51,10 @@ export function longestCommonSubsequence(a: string, b: string): string {
           }
         }
       }
-      if (a[i] === b[j]) {
+      if (
+        a[i] === b[j] ||
+        (ignoreCase && a[i].toLowerCase() === b[j].toLowerCase())
+      ) {
         if (
           i > 0 &&
           j > 0 &&
@@ -55,9 +62,9 @@ export function longestCommonSubsequence(a: string, b: string): string {
         ) {
           currentObject.length = arr[i - 1][j - 1].length + 1;
           currentObject.previous = [i - 1, j - 1];
-          currentObject.character = a[i];
+          currentObject.character = b[j];
         } else if (i == 0 || j == 0) {
-          currentObject.character = a[i];
+          currentObject.character = b[j];
           currentObject.length = 1;
           currentObject.previous = [-1, -1];
         }
@@ -80,8 +87,13 @@ export function longestCommonSubsequence(a: string, b: string): string {
 export function diffCharacters(
   oldString: string,
   newString: string,
+  ignoreCase = false,
 ): IDiffCharacter[] {
-  const commonSubsequence = longestCommonSubsequence(oldString, newString);
+  const commonSubsequence = longestCommonSubsequence(
+    oldString,
+    newString,
+    ignoreCase,
+  );
   const result: IDiffCharacter[] = [];
   let oldStringPointer = 0;
   let newStringPointer = 0;
@@ -91,10 +103,18 @@ export function diffCharacters(
     newStringPointer < newString.length ||
     commonSubsequencePointer < commonSubsequence.length
   ) {
+    console.log(
+      oldStringPointer,
+      newStringPointer,
+      commonSubsequencePointer,
+    )
     if (
       oldStringPointer < oldString.length &&
-      oldString[oldStringPointer] !==
-        commonSubsequence[commonSubsequencePointer]
+      (!ignoreCase && oldString[oldStringPointer] !==
+          commonSubsequence[commonSubsequencePointer] ||
+        (ignoreCase &&
+          oldString[oldStringPointer].toLowerCase() !==
+            commonSubsequence[commonSubsequencePointer].toLowerCase()))
     ) {
       result.push({
         character: oldString[oldStringPointer],
@@ -104,8 +124,11 @@ export function diffCharacters(
       oldStringPointer++;
     } else if (
       newStringPointer < newString.length &&
-      newString[newStringPointer] !==
-        commonSubsequence[commonSubsequencePointer]
+      (!ignoreCase && newString[newStringPointer] !==
+          commonSubsequence[commonSubsequencePointer] ||
+        (ignoreCase &&
+          newString[newStringPointer].toLowerCase() !==
+            commonSubsequence[commonSubsequencePointer].toLowerCase()))
     ) {
       result.push({
         character: newString[newStringPointer],
@@ -113,14 +136,7 @@ export function diffCharacters(
         wasRemoved: false,
       });
       newStringPointer++;
-    } else if (
-      oldStringPointer < oldString.length &&
-      newStringPointer < newString.length &&
-      oldString[oldStringPointer] ===
-        commonSubsequence[commonSubsequencePointer] &&
-      newString[newStringPointer] ===
-        commonSubsequence[commonSubsequencePointer]
-    ) {
+    } else {
       result.push({
         character: commonSubsequence[commonSubsequencePointer],
         wasAdded: false,

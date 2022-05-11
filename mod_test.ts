@@ -13,4 +13,12 @@ Deno.test("Longest Common Subsequence", () => {
     ),
     "BACDCBAADDACABBDAABCDBBBCCCCB",
   );
+  assertEquals(
+    longestCommonSubsequence(
+      "abCd",
+      "AbCD",
+      true,
+    ),
+    "AbCD",
+  );
 });
