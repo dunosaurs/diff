@@ -11,7 +11,7 @@ diffCharacters("ABCBDAB", "BDCABA")
 
 ## API
 
-*diffCharacters(oldString: string, newString: string, ignoreCase = false)*
+*diffCharacters(oldString: string, newString: string, ignoreCase = false): IDiffCharacter[]*
 
 Compares two strings by character and returns a list 
 
@@ -21,7 +21,7 @@ Compares two strings by character and returns a list
 
 **ignoreCase**: Whether case differences should be taken into account
 
-`IDiffCharacter` objects (explained below)
+Returns an array of `IDiffCharacter` objects (explained below)
 
 *longestCommonSubsequence(a: string, b: string, ignoreCase = false)*
 
