@@ -133,18 +133,3 @@ export function diffCharacters(
   }
   return result;
 }
-
-for (const character of diffCharacters("boopa", "boop beep boppy")) {
-  let finalString = "";
-  if (character.wasRemoved) {
-    // print red if removed without newline
-    finalString += `\x1b[31m${character.character}\x1b[0m`;
-  } else if (character.wasAdded) {
-    // print green if added
-    finalString += `\x1b[32m${character.character}\x1b[0m`;
-  } else {
-    // print white if unchanged
-    finalString += `\x1b[37m${character.character}\x1b[0m`;
-  }
-  console.log(finalString);
-}
