@@ -23,7 +23,7 @@ Compares two strings by character and returns a list
 
 Returns an array of `IDiffCharacter` objects (explained below)
 
-### longestCommonSubsequence(a: string, b: string, ignoreCase = false)*
+### longestCommonSubsequence(a: string, b: string, ignoreCase = false)
 
 Compares two strings by character and returns the [longest common subsequence](https://en.wikipedia.org/wiki/Longest_common_subsequence_problem)
 
