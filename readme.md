@@ -14,8 +14,11 @@ diffCharacters("ABCBDAB", "BDCABA")
 *diffCharacters(oldString: string, newString: string, ignoreCase = false)*
 
 Compares two strings by character and returns a list 
+
 **oldString**: The string to be transformed
+
 **newString**: The string to be transformed into
+
 **ignoreCase**: Whether case differences should be taken into account
 
 `IDiffCharacter` objects (explained below)
