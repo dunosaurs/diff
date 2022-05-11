@@ -77,7 +77,10 @@ export function longestCommonSubsequence(a: string, b: string): string {
   return result;
 }
 
-export function diffCharacters(oldString: string, newString: string): IDiffCharacter[] {
+export function diffCharacters(
+  oldString: string,
+  newString: string,
+): IDiffCharacter[] {
   const commonSubsequence = longestCommonSubsequence(oldString, newString);
   const result: IDiffCharacter[] = [];
   let oldStringPointer = 0;
@@ -130,7 +133,6 @@ export function diffCharacters(oldString: string, newString: string): IDiffChara
   }
   return result;
 }
-
 
 for (const character of diffCharacters("boopa", "boop beep boppy")) {
   let finalString = "";
