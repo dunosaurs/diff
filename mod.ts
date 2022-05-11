@@ -1,4 +1,4 @@
-import { diffCharacter } from "./types.ts";
+import { IDiffCharacter } from "./types.ts";
 
 export function longestCommonSubsequence(a: string, b: string): string {
   const arr: {
@@ -48,7 +48,11 @@ export function longestCommonSubsequence(a: string, b: string): string {
         }
       }
       if (a[i] === b[j]) {
-        if (i > 0 && j > 0 && arr[i - 1][j - 1].length + 1 > currentObject.length) {
+        if (
+          i > 0 &&
+          j > 0 &&
+          arr[i - 1][j - 1].length + 1 > currentObject.length
+        ) {
           currentObject.length = arr[i - 1][j - 1].length + 1;
           currentObject.previous = [i - 1, j - 1];
           currentObject.character = a[i];
@@ -71,4 +75,74 @@ export function longestCommonSubsequence(a: string, b: string): string {
     currentObject = arr[currentObject.previous[0]][currentObject.previous[1]];
   }
   return result;
+}
+
+export function diffCharacters(oldString: string, newString: string): IDiffCharacter[] {
+  const commonSubsequence = longestCommonSubsequence(oldString, newString);
+  const result: IDiffCharacter[] = [];
+  let oldStringPointer = 0;
+  let newStringPointer = 0;
+  let commonSubsequencePointer = 0;
+  while (
+    oldStringPointer < oldString.length ||
+    newStringPointer < newString.length ||
+    commonSubsequencePointer < commonSubsequence.length
+  ) {
+    if (
+      oldStringPointer < oldString.length &&
+      oldString[oldStringPointer] !==
+        commonSubsequence[commonSubsequencePointer]
+    ) {
+      result.push({
+        character: oldString[oldStringPointer],
+        wasAdded: false,
+        wasRemoved: true,
+      });
+      oldStringPointer++;
+    } else if (
+      newStringPointer < newString.length &&
+      newString[newStringPointer] !==
+        commonSubsequence[commonSubsequencePointer]
+    ) {
+      result.push({
+        character: newString[newStringPointer],
+        wasAdded: true,
+        wasRemoved: false,
+      });
+      newStringPointer++;
+    } else if (
+      oldStringPointer < oldString.length &&
+      newStringPointer < newString.length &&
+      oldString[oldStringPointer] ===
+        commonSubsequence[commonSubsequencePointer] &&
+      newString[newStringPointer] ===
+        commonSubsequence[commonSubsequencePointer]
+    ) {
+      result.push({
+        character: commonSubsequence[commonSubsequencePointer],
+        wasAdded: false,
+        wasRemoved: false,
+      });
+      oldStringPointer++;
+      newStringPointer++;
+      commonSubsequencePointer++;
+    }
+  }
+  return result;
+}
+
+
+for (const character of diffCharacters("boopa", "boop beep boppy")) {
+  let finalString = "";
+  if (character.wasRemoved) {
+    // print red if removed without newline
+    finalString += `\x1b[31m${character.character}\x1b[0m`;
+  } else if (character.wasAdded) {
+    // print green if added
+    finalString += `\x1b[32m${character.character}\x1b[0m`;
+  } else {
+    // print white if unchanged
+    finalString += `\x1b[37m${character.character}\x1b[0m`;
+  }
+  console.log(finalString);
 }
