@@ -12,9 +12,11 @@ diffCharacters("ABCBDAB", "BDCABA")
 ## API
 
 *diffCharacters(oldString: string, newString: string)*
+
 Compares two strings by character and returns a list `IDiffCharacter` objects (explained below)
 
 *longestCommonSubsequence(a: string, b: string)*
+
 Compares two strings by character and returns the [longest common subsequence](https://en.wikipedia.org/wiki/Longest_common_subsequence_problem)
 
 ## Types
@@ -44,4 +46,5 @@ for (const character of diffCharacters("boopa", "boop beep boppy")) {
   console.log(finalString);
 }
 ```
+![image](https://user-images.githubusercontent.com/36348190/167757003-aef6e4c7-6c83-444e-ba04-7bb6c6681133.png)
 
