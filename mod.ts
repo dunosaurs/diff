@@ -103,11 +103,6 @@ export function diffCharacters(
     newStringPointer < newString.length ||
     commonSubsequencePointer < commonSubsequence.length
   ) {
-    console.log(
-      oldStringPointer,
-      newStringPointer,
-      commonSubsequencePointer,
-    )
     if (
       oldStringPointer < oldString.length &&
       (!ignoreCase && oldString[oldStringPointer] !==
