@@ -47,8 +47,8 @@ The object contains the character and whether that character was removed, added,
 or neither. Here is example usage
 
 ```typescript
+let finalString = "";
 for (const character of diffCharacters("boopa", "boop beep boppy")) {
-  let finalString = "";
   if (character.wasRemoved) {
     // print red if removed without newline
     finalString += `\x1b[31m${character.character}\x1b[0m`;
@@ -59,8 +59,8 @@ for (const character of diffCharacters("boopa", "boop beep boppy")) {
     // print white if unchanged
     finalString += `\x1b[37m${character.character}\x1b[0m`;
   }
-  console.log(finalString);
 }
+console.log(finalString);
 ```
 
-![image](https://user-images.githubusercontent.com/36348190/167757003-aef6e4c7-6c83-444e-ba04-7bb6c6681133.png)
+![image](https://user-images.githubusercontent.com/11367844/200397905-1885fdb1-b765-4871-a66d-7f2bbe453bea.png)
