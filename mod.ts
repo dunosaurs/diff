@@ -1,5 +1,18 @@
-import { IDiffCharacter } from "./types.ts";
+/**
+ * Object representing a single character in a difference between strings
+ */
+export type DiffCharacter = {
+  character: string;
+  wasAdded: boolean;
+  wasRemoved: boolean;
+};
 
+/**
+ * Return the longest common subsequence of two strings
+ * @example
+ * longestCommonSubsequence("ABCBDAB", "BDCABA") // "BCBA"
+ * longestCommonSubsequence("abCd", "AbCD", true) // "AbCD"
+ */
 export function longestCommonSubsequence(
   a: string,
   b: string,
@@ -39,7 +52,6 @@ export function longestCommonSubsequence(
         previous: [-1, -1],
         character: null,
       };
-      // @ts-ignore: <steps does have an iterator>
       for (const step of steps) {
         const h = i + step[0];
         const w = j + step[1];
@@ -84,17 +96,20 @@ export function longestCommonSubsequence(
   return result;
 }
 
+/**
+ * Returns an array representing how the strings are different
+ */
 export function diffCharacters(
   oldString: string,
   newString: string,
   ignoreCase = false,
-): IDiffCharacter[] {
+): DiffCharacter[] {
   const commonSubsequence = longestCommonSubsequence(
     oldString,
     newString,
     ignoreCase,
   );
-  const result: IDiffCharacter[] = [];
+  const result: DiffCharacter[] = [];
   let oldStringPointer = 0;
   let newStringPointer = 0;
   let commonSubsequencePointer = 0;
@@ -106,7 +121,7 @@ export function diffCharacters(
     if (
       oldStringPointer < oldString.length &&
       (!ignoreCase && oldString[oldStringPointer] !==
-          commonSubsequence[commonSubsequencePointer] ||
+            commonSubsequence[commonSubsequencePointer] ||
         (ignoreCase &&
           oldString[oldStringPointer].toLowerCase() !==
             commonSubsequence[commonSubsequencePointer].toLowerCase()))
@@ -120,7 +135,7 @@ export function diffCharacters(
     } else if (
       newStringPointer < newString.length &&
       (!ignoreCase && newString[newStringPointer] !==
-          commonSubsequence[commonSubsequencePointer] ||
+            commonSubsequence[commonSubsequencePointer] ||
         (ignoreCase &&
           newString[newStringPointer].toLowerCase() !==
             commonSubsequence[commonSubsequencePointer].toLowerCase()))

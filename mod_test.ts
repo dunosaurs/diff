@@ -1,4 +1,4 @@
-import { assertEquals } from "./test_deps.ts";
+import { assertEquals } from "std/testing/asserts.ts";
 import { longestCommonSubsequence } from "./mod.ts";
 
 Deno.test("Longest Common Subsequence", () => {
