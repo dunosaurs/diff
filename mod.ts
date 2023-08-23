@@ -18,6 +18,8 @@ export function longestCommonSubsequence(
   b: string,
   ignoreCase = false,
 ): string {
+  if (a.length === 0 || b.length === 0) return "";
+
   const arr: {
     length: number;
     character: string | null;
