@@ -44,3 +44,10 @@ Deno.test("DiffCharacters", () => {
   ];
   assertEquals(diffCharacters("boopa", "boop beep boppy"), result);
 });
+
+Deno.test("DiffCharacters given empty string", () => {
+  const result = [
+    { character: "?", wasAdded: true, wasRemoved: false },
+  ];
+  assertEquals(diffCharacters("", "?"), result);
+});
